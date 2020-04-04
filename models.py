@@ -21,3 +21,14 @@ class User(db.Model):
     def password_valid(self, password):
         return check_password_hash(self._password, password)
 
+
+class Group(db.Model):
+    g_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    status = db.Column(db.String, nullable=False)
+    course = db.Column(db.String, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    applicants = db.relationship('Applicant', back_populates='group')
+    seat = db.Column(db.Integer, nullable=False)
+
+
