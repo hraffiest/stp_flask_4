@@ -5,9 +5,10 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
+    __tablename__ = 'users'
     u_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    mail = db.Column(db.String, nulllable=False)
+    mail = db.Column(db.String, nullable=False)
     _password = db.Column(db.String, nullable=False)
 
     @property
@@ -23,6 +24,7 @@ class User(db.Model):
 
 
 class Group(db.Model):
+    __tablename__ = 'groups'
     g_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     status = db.Column(db.String, nullable=False)
@@ -33,6 +35,7 @@ class Group(db.Model):
 
 
 class Applicant(db.Model):
+    __tablename__ = 'applicants'
     a_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False)
@@ -40,3 +43,5 @@ class Applicant(db.Model):
     status = db.Column(db.String, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.g_id'))
     group = db.relationship('Group', back_populates='applicants')
+
+
