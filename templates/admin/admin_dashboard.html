@@ -15,7 +15,7 @@
 
                             <h3>Новые заявки:</h3>
                             <table class="table">
-                                {% for g in apps %}
+                                {% for g in apps[:3] %}
                                 <tr>
                                     <td>{{ g.name }}</td>
                                     <td>{{ g.phone }}</td>
@@ -35,21 +35,13 @@
                             <h2>Группы</h2>
                             <br>
                             <table class="table">
+                                {% for group in groups %}
                                 <tr>
-                                    <td><a href="/">Vue js январь</a></td>
-                                    <td>8 / 10 набрано</td>
+                                    <td><a href="/admin/group/edit/?id={{ group.g_id }}">{{ group.title }}</a></td>
+                                    <td>8 / {{ group.seats }} набрано</td>
                                     <td>есть места</td>
                                 </tr>
-                                <tr>
-                                    <td><a href="/">Flask февраль</a></td>
-                                    <td>10 / 10 набрано</td>
-                                    <td>нет мест</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/">Django февраль</a></td>
-                                    <td>6 / 10 набрано</td>
-                                    <td>есть места</td>
-                                </tr>
+                                {% endfor %}
                             </table>
 
                         </div>
