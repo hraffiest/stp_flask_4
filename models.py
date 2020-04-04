@@ -32,3 +32,11 @@ class Group(db.Model):
     seat = db.Column(db.Integer, nullable=False)
 
 
+class Applicant(db.Model):
+    a_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    phone = db.Column(db.Integer, nullable=False)
+    mail = db.Column(db.String, nullable=False)
+    status = db.Column(db.String, nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.g_id'))
+    group = db.relationship('Group', back_populates='applicants')
