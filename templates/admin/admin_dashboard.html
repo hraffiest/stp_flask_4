@@ -13,24 +13,17 @@
                             <p>{{ apps|length }} всего, {{ r_apps|length }} распределены и
                                 {{ apps|length - r_apps|length }} не распределены</p>
 
-                            <h3>Новые заявки</h3>
+                            <h3>Новые заявки:</h3>
                             <table class="table">
-                                {% for g in groups_new %}
+                                {% for g in apps %}
                                 <tr>
-                                    <td><a href="/">{{ g.title }}</a></td>
-                                    <td>8 / {{ g.seats }} набрано</td>
-                                    <td>есть места</td>
+                                    <td>{{ g.name }}</td>
+                                    <td>{{ g.phone }}</td>
+                                    <td>{{ g.mail }}</td>
+                                    <td>{{ g.status }}</td>
+                                    <td><a href="/admin/applicant/edit/?id={{ g.group_id }}">Править</a></td>
                                 </tr>
-                                <tr>
-                                    <td><a href="/">Flask февраль</a></td>
-                                    <td>10 / 10 набрано</td>
-                                    <td>нет мест</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/">Django февраль</a></td>
-                                    <td>6 / 10 набрано</td>
-                                    <td>есть места</td>
-                                </tr>
+                                {% endfor %}
                             </table>
                             <br>
                             <a href="" class></a>
