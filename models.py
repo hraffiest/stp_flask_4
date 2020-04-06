@@ -1,15 +1,38 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required, current_user
+from flask_security.utils import encrypt_password
 
 db = SQLAlchemy()
 
+roles_users = db.Table(
+    'roles_users',
+    db.Column('user_id', db.Integer(), db.ForeignKey('user.u_id')),
+    db.Column('role_id', db.Integer(), db.ForeignKey('role.r_id'))
+)
 
-class User(db.Model):
+
+class Role(db.Model, RoleMixin):
+    r_id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+
+    def __str__(self):
+        return self.name
+
+
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     u_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    mail = db.Column(db.String, nullable=False)
-    _password = db.Column(db.String, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    mail = db.Column(db.String(255), nullable=False, unique=True)
+    _password = db.Column(db.String(255), nullable=False)
+    roles = db.relationship('Role', secondary=roles_users,
+                            back_populates='users')
+
+    def __str__(self):
+        return self.email
 
     @property
     def password(self):
