@@ -7,7 +7,7 @@ class DashboardView(AdminIndexView):
 
     @expose('/')
     def index(self):
-        # order by a_id because we dont have date column in applicant model
+        # order by a_id becouse we dont have date column in applicant model
         applicants = db.session.query(Applicant).order_by(Applicant.a_id.desc()).all()
         appl_new = []
         appl_r = []
@@ -17,6 +17,7 @@ class DashboardView(AdminIndexView):
             if appl.status == 'новая':
                 appl_new.append(appl)
         groups = db.session.query(Group).order_by(Group.start_date.desc()).all()
+
         # dict for free seats in groups
         dict_for_d = dict()
         for group in groups[:4]:
