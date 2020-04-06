@@ -26,7 +26,7 @@
                                 {% endfor %}
                             </table>
                             <br>
-                            <a href="" class></a>
+                            <a href="/admin/applicant/" class><button type="button" class="btn btn-primary">Все заявки</button></a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -38,11 +38,15 @@
                                 {% for group in groups %}
                                 <tr>
                                     <td><a href="/admin/group/edit/?id={{ group.g_id }}">{{ group.title }}</a></td>
-                                    <td>8 / {{ group.seats }} набрано</td>
+                                    {% if group.status != 'набрана' %}
+                                    <td>{% if dict_for_d[group.g_id] %}{{ dict_for_d[group.g_id] }}
+                                        {% else %} 0{% endif %} / {{ group.seat }} набрано</td>
                                     <td>есть места</td>
+                                    {% else %}<td>{{ group.seat }} / {{ group.seat }} набрано</td><td> мест нет </td>{% endif %}
                                 </tr>
                                 {% endfor %}
                             </table>
+                            <a href="/admin/group/" class><button type="button" class="btn btn-primary">Все группы</button></a>
 
                         </div>
                     </div>
